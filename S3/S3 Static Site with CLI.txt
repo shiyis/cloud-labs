@@ -1,0 +1,70 @@
+S3 Static site with CLI 
+
+Step 1 : Create an S3 Bucket from AWS CLI 
+
+Create an S3 bucket in the us-east-1 region, giving your bucket a globally unique name, using the S3 API: 
+
+aws s3api create-bucket --bucket <UNIQUE_BUCKET_NAME> --acl public-read  
+
+Step 2: Modify the Newly Created Bucket to Be an S3 Static website Bucket 
+
+aws s3 website s3://<UNIQUE_BUCKET_NAME> --index-document index.html  
+
+Step 3: Modify Provided S3 Policy File  
+
+Create policy_s3.json file with below content 
+
+ 
+ 
+{ 
+
+  "Version": "2012-10-17", 
+
+  "Statement": [ 
+
+    { 
+
+      "Effect": "Allow", 
+
+      "Action": "s3:GetObject", 
+
+      "Principal": "*", 
+
+      "Resource": "arn:aws:s3:::<REPLACE-WITH-BUCKET-NAME>/*" 
+
+    }, 
+
+    { 
+
+      "Effect": "Allow", 
+
+      "Action": "s3:ListBucket", 
+
+      "Principal": "*", 
+
+      "Resource": "arn:aws:s3:::<REPLACE-WITH-BUCKET-NAME>" 
+
+    } 
+
+  ] 
+
+} 
+ 
+
+aws s3api put-bucket-policy --bucket <UNIQUE_BUCKET_NAME> --policy file://policy_s3.json  
+
+Step 4: Create a Basic `index.html` Page and Upload File 
+
+Create a basic HTML page: (Blow is linux command, you have to search from google for windows and Mac. You can upload the last session's file directly if you have any issue) 
+ 
+echo "<html><center><h1>My Static Website on S3</h1></center></html>" > index.html  
+ 
+ 
+
+Upload the index.html file to your S3 website bucket using the AWS S3 API CLI: 
+
+aws s3 cp index.html s3://<UNIQUE_BUCKET_NAME>  
+
+Step 5 Verify Your S3 Static Website Is Working – below command for linux, you can test from browser. 
+
+curl [http://%3Cunique_bucket_name%3E.s3-website.us-east-1.amazonaws.com/]http://<UNIQUE_BUCKET_NAME>.s3-website.us-east-1.amazonaws.com 

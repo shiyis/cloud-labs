@@ -1,0 +1,8 @@
+Here is what we need to create over the weekend.
+✅ 1 VPC with IGW and 4 subnets. ⚠
+✅ 1 Autoscaling, <Any no of > EC2 instance ⚠
+✅ 1 RDS instance ⚠
+✅ 1 EFS that connects to all EC2 ⚠
+✅ A shell script written onto EFS ⚠
+✅ 2 of the subnets should be for EC2, two subnets should be for RDS. ⚠
+✅ RDS should only be accessible from EC2. ⚠

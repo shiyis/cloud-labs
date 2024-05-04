@@ -1,0 +1,76 @@
+Lab - Setting Up Lambda Functions with S3 Event Triggers 
+
+Step 1 : Create an IAM Role for Lambda with the permission below: 
+
+ 
+
+Create an SNS Topic and Subscribe to Your Email Address to It 
+
+Create an SNS topic 
+
+Subscribe to your email  
+
+To confirm the subscription, access the email previously used, open the SNS email, and click Confirm subscription. 
+
+Create a Lambda Function 
+
+Create a Lambda function with the Role you have created. Below is the code: (Code is compiling but now sending email to SNS. I want to show you how to debug lambda. You have to fix code) 
+
+import json 
+
+import boto3 
+
+  
+
+def lambda_handler(event, context): 
+
+    client = boto3.client('sns') 
+
+  
+
+    try: 
+
+        size = event['Records'][0]['s3']['object']['size'] 
+
+    except KeyError: 
+
+        pass 
+
+    bucket = event['Records'][0]['s3']['bucket']['name'] 
+
+    key = event['Records'][0]['s3']['object']['key'] 
+
+    if event['Records'][0]['eventName'] == "ObjectRemoved:Delete": 
+
+        payload_str = "An object with name: " + key + " was deleted from bucket: " + bucket 
+
+    else: 
+
+        payload_str = "An object with name " + key + " and size "+ str(size) + "B was uploaded to bucket: " + bucket 
+
+  
+
+    print(payload_str) 
+
+    response = client.publish(TargetArn='<<ARN of your SNS topic>>',Subject='My Lambda S3 event',Message=json.dumps({'default': json.dumps(payload_str)}), 
+
+    MessageStructure='json') 
+
+ 
+
+Create S3 bucket and setup “Event” from properties for all kinds of S3 operation. 
+
+Make sure you have integrated proper Lambda to S3 
+
+
+⭐ AWS CLI - create s3 bucket, upload files, delete file
+
+aws s3 mb s3://bucket-name --region region
+
+aws s3 rb s3://bucket-name --force
+
+aws s3api delete-objects --bucket bucket-name --delete "$(aws s3api list-object-version --bucket bucket-name --output=json --query='{Objects: Versions[].{Key:Key,VersionId:VersionId}}')"
+
+
+⭐ AWS CLI - Create EC2 instance and delete
+

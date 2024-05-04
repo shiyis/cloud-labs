@@ -1,0 +1,20 @@
+__2022.09.08__
+Encryption ✅
+Terraform ✅
+console, CLI, cloudformation, terraform, ✅
+rto, rpo case studies ✅
+
+
+__2022.09.12__
+✅ 1. Create Linux EC2 Instance
+✅ --2. PuTTy optional--
+✅ 3. SSH into EC2 instance
+✅ 4. Create EFS
+✅ 5. Mount EFS to EC2 instance and make some files
+6. Delete EC2 instance
+7. Make 2nd EC2 instance and mount existing EFS
+8. Validate files
+
+
+__2022.09.13__
+

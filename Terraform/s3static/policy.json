@@ -1,0 +1,33 @@
+{
+
+  "Version": "2012-10-17",
+
+  "Statement": [
+
+    {
+
+      "Effect": "Allow",
+
+      "Action": "s3:GetObject",
+
+      "Principal": "*",
+
+      "Resource": "arn:aws:s3:::s3websitetest1235abcd245/*"
+
+    },
+
+    {
+
+      "Effect": "Allow",
+
+      "Action": "s3:ListBucket",
+
+      "Principal": "*",
+
+      "Resource": "arn:aws:s3:::s3websitetest1235abcd245"
+
+    }
+
+  ]
+
+}

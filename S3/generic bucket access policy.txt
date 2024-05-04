@@ -1,0 +1,13 @@
+{
+   "Version":"2012-10-17",
+   "Id":"Policyertret",
+   "Statement":[
+      {
+         "Sid":"Stmt1645724933619",
+         "Effect":"Allow",
+         "Principal":"*",
+         "Action":"s3:GetObject",
+         "Resource":"arn:aws:s3:::jmlab01-20220914/*"
+      }
+   ]
+}
