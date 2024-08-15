@@ -1,0 +1,3 @@
+[submodule "terraform-labs"]
+	path = terraform-labs
+	url = ./terraform-labs
